@@ -1,0 +1,61 @@
+<!doctype>
+<html>
+  <head>
+    <title>Camera</title>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/swfobject/swfobject.js"></script>
+    <script type="text/javascript">
+      var Camera = null;
+    
+      event_gotKey = function(key) {
+        console.log('gotKey: ' + key);
+        Camera.startSend();
+      };
+      
+      event_startedPublishing = function() {
+        console.log('startedPublishing');
+      };
+      
+      event_ncClosed = function() {
+        console.log('ncClosed');
+      };
+      
+      event_nsSuccess = function() {
+        console.log('nsSuccess');
+      };
+      
+      event_ncFailed = function() {
+        console.log('ncFailed');
+      };
+      
+      event_nsClosed = function() {
+        console.log('nsClosed');
+      };
+      
+      handler = {
+        nsClosed: function() {
+          console.log('nsClosed');
+        }
+      };
+      
+      event_loaded = function(test) {
+        Camera = $('#Camera').get(0);        
+        Camera.init({what: true, callback1: 'handler.nsClosed'});
+        Camera.log('Testing from JS');
+      }
+      
+      $(function() {
+        swfobject.embedSWF("Camera.swf", "cameratwo", "320", "240", "9.0.0", "", {}, {allowscriptaccess: 'always'}, {id: 'Camera', name: 'Camera'});
+      });
+    </script>
+    <style type="text/css">
+      #cameratwo {
+        width: 320px;
+        height: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cameratwo">Alternate content.</div>
+  </body>
+</html>
